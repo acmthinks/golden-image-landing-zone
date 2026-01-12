@@ -38,3 +38,9 @@ variable "golden_image_vpc_cidr" {
   description = "IP Address CIDR for the vpn"
   default     = "10.50.0.0/25"
 }
+
+variable "golden_image_bucket_name" {
+  type = string
+  description = "COS bucket name (must be unique across all Object Storage)"
+  default = "base-linux"
+}

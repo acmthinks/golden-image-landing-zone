@@ -6,6 +6,11 @@
  * plugin, located at: https://github.com/IBM/packer-plugin-ibmcloud/
  */
 
+resource "random_pet" "server_name" {
+  length    = 2
+  separator = "-"
+}
+# Example output: "willing-python"
 
 ###############################################################################
 ## Read Resource Group
@@ -47,7 +52,7 @@ resource "ibm_iam_access_group_members" "golden_image_members" {
 
 
 ###############################################################################
-## Create a IAM Service Policies
+## Create IAM Service Policies
 ##
 ## Service ID policies will restrict access to only those services and resources
 ## necessary to test, create and store golden images
@@ -140,9 +145,11 @@ resource "ibm_cos_bucket" "cos_bucket" {
   ## UNCOMMENT if encrypting COS bucket with golden-images
   ##depends_on = [ ibm_iam_authorization_policy.policy ]
   ##kms_key_crn         = ibm_kms_key.test.id
-  bucket_name           = "base-linux"
+  ## UNCOMMENT to generate a unique bucket name
+  #bucket_name           = join("-", ["${var.golden_image_bucket_name}", random_pet.server_name.id])
+  bucket_name           = "${var.golden_image_bucket_name}"
   resource_instance_id  = ibm_resource_instance.cos_instance.id
-  region_location       = "us-south"
+  region_location       = "${var.region}"
   storage_class         = "smart"
 }
 

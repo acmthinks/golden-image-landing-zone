@@ -38,7 +38,7 @@ ibmcloud_api_key = "<IBM_CLOUD_API_KEY>"
 
 Open `terraform/variables.tf` and validate default values for IBM Cloud region, zone, VPC IP address prefix and subnet CIDR. Update as necessary.
 
-# Run
+# Provision Landing Zone
 
 ``` terraform
 cd golden-image-landing-zone/terraform
@@ -46,6 +46,8 @@ terraform init
 terraform plan
 terraform apply
 ```
+# Generate "golden image"
+:star2: Instructions to generate "golden images" on this landing zone --> https://github.com/acmthinks/golden-image
 
 # Uninstall
 1. Delete all objects (golden images) in the COS bucket
